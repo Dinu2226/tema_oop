@@ -1,9 +1,11 @@
 package main;
 
 import actions.commands.Commands;
-import actions.query.actors;
-import actions.recommendations.all_users;
-import actions.recommendations.premium;
+import actions.query.Actors;
+import actions.query.Movies;
+import actions.query.Shows;
+import actions.recommendations.All_users;
+import actions.recommendations.Premium;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
@@ -106,31 +108,47 @@ public final class Main {
                 }
             }else if(action.getActionType().equals("query")) {
 
-                actions.query.actors query = new actors(users, movies, serials, actors, action);
+                Actors actor = new Actors(users, movies, serials, actors, action);
 
                 if (action.getObjectType().equals("actors")) {
                     if(action.getCriteria().equals("average")) {
-                        String message = query.average();
+                        String message = actor.average();
                         JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
                         arrayResult.add(outString);
 
                     } else if(action.getCriteria().equals("awards")) {
-                        String message = query.awards();
+                        String message = actor.awards();
                         JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
                         arrayResult.add(outString);
 
                     } else if(action.getCriteria().equals("filter_description")) {
-                        String message = query.filter_description(action.getSortType());
+                        String message = actor.filter_description(action.getSortType());
                         JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
                         arrayResult.add(outString);
 
+                    }
+                } else if (action.getObjectType().equals("movies")) {
+                    if(action.getCriteria().equals("favorite")) {
+                        Movies movie = new Movies(users, movies, serials, actors, action);
+                        String message = movie.favorite(action.getSortType());
+                        JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
+                        arrayResult.add(outString);
+
+                    }
+
+                }  else if (action.getObjectType().equals("shows")) {
+                    if(action.getCriteria().equals("favorite")) {
+                        Shows show = new Shows(users, movies, serials, actors, action);
+                        String message = show.favorite(action.getSortType());
+                        JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
+                        arrayResult.add(outString);
                     }
                 }
 
             }else if(action.getActionType().equals("recommendation")) {
 
-                all_users recommendation = new all_users(users, movies, serials, action);
-                premium recommendationP = new premium(users, movies, serials, action);
+                All_users recommendation = new All_users(users, movies, serials, action);
+                Premium recommendationP = new Premium(users, movies, serials, action);
 
                 if(action.getType().equals("standard")) {
                     String message = recommendation.standard();

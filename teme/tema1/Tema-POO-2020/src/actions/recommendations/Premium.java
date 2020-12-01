@@ -7,7 +7,7 @@ import fileio.UserInputData;
 
 import java.util.*;
 
-public class premium {
+public class Premium {
 
     private List<UserInputData> users;
     private List<MovieInputData> movies;
@@ -15,7 +15,7 @@ public class premium {
     private ActionInputData actions;
     private Map<String, Integer> userHistory;
 
-    public premium(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
+    public Premium(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
         this.users = users;
         this.movies = movies;
         this. serials = serials;
@@ -65,6 +65,7 @@ public class premium {
         for(String movieName : sorted.keySet()) {
             if(!userHistory.containsKey(movieName)) {
                 outString = "FavoriteRecommendation result: " + movieName;
+                break;
             }
         }
 

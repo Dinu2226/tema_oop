@@ -10,7 +10,7 @@ import main.Main;
 
 import java.util.*;
 
-public class all_users {
+public class All_users {
 
     private List<UserInputData> users;
     private List<MovieInputData> movies;
@@ -19,7 +19,7 @@ public class all_users {
     private Map<String, Integer> userHistory;
     private ArrayList<String> favoriteMovies;
 
-    public all_users(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
+    public All_users(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
         this.users = users;
         this.movies = movies;
         this. serials = serials;

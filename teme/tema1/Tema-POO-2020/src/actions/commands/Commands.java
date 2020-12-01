@@ -16,7 +16,6 @@ public class Commands {
     private ActionInputData actions;
     private Map<String, Integer> userHistory;
     private ArrayList<String>  favoriteMovies;
-    private Integer value = 0;
 
     public Commands(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
         this.users = users;
@@ -61,7 +60,7 @@ public class Commands {
             if(user.getUsername().equals(actions.getUsername())) {
                 userHistory = user.getHistory();
                 if(userHistory.containsKey(actions.getTitle())) {
-                    value = userHistory.get(actions.getTitle());
+                    Integer value = userHistory.get(actions.getTitle());
                     value++;
                     userHistory.replace(actions.getTitle(), value);
                     outString = "success -> " + actions.getTitle() + " was viewed with total views of " + value;

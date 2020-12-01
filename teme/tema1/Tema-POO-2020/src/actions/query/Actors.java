@@ -5,7 +5,7 @@ import utils.Utils;
 
 import java.util.*;
 
-public class actors {
+public class Actors {
 
     private List<UserInputData> users;
     private List<MovieInputData> movies;
@@ -13,7 +13,7 @@ public class actors {
     private List<ActorInputData> actors;
     private ActionInputData actions;
 
-    public actors(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials,List<ActorInputData> actors, ActionInputData actions) {
+    public Actors(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, List<ActorInputData> actors, ActionInputData actions) {
         this.users = users;
         this.movies = movies;
         this. serials = serials;
