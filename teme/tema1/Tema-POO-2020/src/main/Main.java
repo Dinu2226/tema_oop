@@ -113,6 +113,17 @@ public final class Main {
                         String message = query.average();
                         JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
                         arrayResult.add(outString);
+
+                    } else if(action.getCriteria().equals("awards")) {
+                        String message = query.awards();
+                        JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
+                        arrayResult.add(outString);
+
+                    } else if(action.getCriteria().equals("filter_description")) {
+                        String message = query.filter_description(action.getSortType());
+                        JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
+                        arrayResult.add(outString);
+
                     }
                 }
 

@@ -85,10 +85,10 @@ public class actors {
 
     public String awards() {
 
-        String outString = "Query result: ";
+        String outString = "Query result: [";
         List<List<String>> listFilter = new ArrayList<>();
         List<String> listAwards = new ArrayList<>();
-        Utils util;
+
         for(ActorInputData checkActor : actors) {
 
             listFilter = actions.getFilters();
@@ -105,7 +105,57 @@ public class actors {
                 outString += checkActor.getName();
                 outString += ", ";
             }
+
         }
+
+        //sterg ultimele 2 caractere adaugate in plus in outString
+        outString.replaceFirst(".&","");
+        outString.replaceFirst(".&","");
+        outString += "]";
+
+        return outString;
+    }
+
+    public String filter_description(String sortType) {
+
+        String outString = "Query result: [";
+        List<List<String>> listFilter = new ArrayList<>();
+        List<String> listWords = new ArrayList<>();
+        List<String> actorsList = new ArrayList<>();
+
+        for(ActorInputData checkActor : actors) {
+
+            listFilter = actions.getFilters();
+            listWords = listFilter.get(2);
+            Integer check = 0;
+
+            for(String word : listWords) {
+                if (!checkActor.getCareerDescription().contains(word)) {
+                    check = 1;
+                }
+            }
+
+            if(check == 0) {
+                actorsList.add(checkActor.getName());
+            }
+
+        }
+        if(sortType == "asc") {
+            Collections.sort(actorsList);
+        } else {
+            Collections.sort(actorsList,Collections.reverseOrder());
+        }
+
+        for(String actor : actorsList) {
+            outString += actor;
+            outString += ", ";
+        }
+
+        //sterg ultimele 2 caractere adaugate in plus in outString
+        outString.replaceFirst(".&","");
+        outString.replaceFirst(".&","");
+        outString += "]";
+        return outString;
     }
 
 }
