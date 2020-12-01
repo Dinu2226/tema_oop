@@ -1,6 +1,7 @@
 package actions.query;
 
 import fileio.*;
+import utils.Utils;
 
 import java.util.*;
 
@@ -87,12 +88,22 @@ public class actors {
         String outString = "Query result: ";
         List<List<String>> listFilter = new ArrayList<>();
         List<String> listAwards = new ArrayList<>();
-
+        Utils util;
         for(ActorInputData checkActor : actors) {
+
             listFilter = actions.getFilters();
             listAwards = listFilter.get(3);
-            for(String award : listAwards) {
+            Integer check = 0;
 
+            for(String award : listAwards) {
+                if (!checkActor.getAwards().containsKey(award)) {
+                    check = 1;
+                }
+            }
+
+            if(check == 0) {
+                outString += checkActor.getName();
+                outString += ", ";
             }
         }
     }
