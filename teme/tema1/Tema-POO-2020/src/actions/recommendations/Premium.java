@@ -25,17 +25,18 @@ public class Premium {
     public String favorite() {
 
         String outString = "";
-        Map<String, Integer> movieFreq = new HashMap<>();
+        Map<String, Integer> movieFreq = new HashMap<>(); //map pentru frecventa
         ArrayList<String> favoriteMovies = new ArrayList<>();
         Integer currValue = 0;
         Map<String, Integer> sorted = new HashMap<>();
 
+        //intiliazam fiecare film cu 0, pentru a ii afla frecventa in lista de favorite a celorlalti users
         for(MovieInputData movieCheck : movies) {
             movieFreq.put(movieCheck.getTitle(), 0);
         }
 
         for(UserInputData checkUser: users) {
-
+            //verificam in lista de favorite a userului si crestem numarul de aparitii al videoului in caz ca l-am gasit
             favoriteMovies = checkUser.getFavoriteMovies();
             for(String movie : favoriteMovies) {
                 if(movieFreq.get(movie) != null) {
@@ -45,7 +46,7 @@ public class Premium {
                 }
             }
         }
-
+        //sortam
         movieFreq.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -61,7 +62,7 @@ public class Premium {
         }
 
         userHistory = checkUser.getHistory();
-
+        //verificam ca filmul sa nu fi fost deja urmarit de utilizator
         for(String movieName : sorted.keySet()) {
             if(!userHistory.containsKey(movieName)) {
                 outString = "FavoriteRecommendation result: " + movieName;

@@ -23,21 +23,22 @@ public class Shows {
 
     public String favorite(String sortType) {
 
-        String outString = "Query result: [";
-        Map<String, Integer> serialsFreq = new HashMap<>();
+        Map<String, Integer> serialsFreq = new HashMap<>(); //map pentru frecventa
         ArrayList<String> favoriteSerials = new ArrayList<>();
         Integer currValue = 0;
         Map<String, Integer> sorted = new HashMap<>();
         List<List<String>> listFilter = new ArrayList<>();
-        List<String> year = new ArrayList<>();
-        List<String> genresList = new ArrayList<>();
+        ArrayList<String> outString = new ArrayList<>();
+        int year = 0;
+        String genresList ;
 
 
-
+        //initializez aparitia fiecarui serial cu 0
         for(SerialInputData serialCheck : serials) {
             serialsFreq.put(serialCheck.getTitle(), 0);
         }
 
+        //retin numarul de aparitii in lista de favorite ale fiecarui user
         for(UserInputData checkUser: users) {
 
             favoriteSerials = checkUser.getFavoriteMovies();
@@ -50,6 +51,7 @@ public class Shows {
             }
         }
 
+        //sortez
         if(sortType == "desc") {
             serialsFreq.entrySet()
                     .stream()
@@ -63,8 +65,14 @@ public class Shows {
         }
 
         listFilter = actions.getFilters();
-        year = listFilter.get(0);
-        genresList = listFilter.get(1);
+
+        if(listFilter.get(0).get(0) == null) {
+            year = -1;
+        } else {
+            year = Integer.parseInt(listFilter.get(0).get(0)); //anul
+        }
+
+        genresList = listFilter.get(1).get(0); //genul
 
         Integer N = actions.getNumber();
 
@@ -74,16 +82,13 @@ public class Shows {
             for(SerialInputData checkSerial : serials) {
                 Integer valid = 0;
                 if(checkSerial.getTitle().equals(movieName)){
-                    if(!checkSerial.getGenres().contains(genresList)) {
-                        valid = 1;
-                    }
-                    if(!year.equals(checkSerial.getYear())) {
+                    //validez atat anul cat si genul ca sa stiu daca se potriveste criteriului
+                    if(checkSerial.getGenres().contains(genresList) && year == checkSerial.getYear()) {
                         valid = 1;
                     }
                 }
-                if(valid == 0) {
-                    outString += movieName;
-                    outString += ", ";
+                if(valid == 1) {
+                    outString.add(movieName);
                     break;
                 }
 
@@ -91,18 +96,14 @@ public class Shows {
 
 
 
-            if(N == 0) {
+            if(N == 0) { //ne oprim cand terminam de adaugat cele N elemente
                 break;
             }
             N--;
         }
 
-        //sterg ultimele 2 caractere adaugate in plus in outString
-        outString.replaceFirst(".&","");
-        outString.replaceFirst(".&","");
 
-        outString += "]";
-        return outString;
+        return "Query result: " +outString.toString();
     }
 
 

@@ -86,13 +86,14 @@ public class Actors {
     public String awards() {
 
         String outString = "Query result: [";
-        List<List<String>> listFilter = new ArrayList<>();
-        List<String> listAwards = new ArrayList<>();
+        List<List<String>> listFilter = new ArrayList<>(); //folosim pentru retinerea filtrelor
+        List<String> listAwards = new ArrayList<>(); //folosim pentru retinerea premiilor
 
+        //caut sa vad daca exista toate premiile din lista de filtre, exista in lista actorului
         for(ActorInputData checkActor : actors) {
 
             listFilter = actions.getFilters();
-            listAwards = listFilter.get(3);
+            listAwards = listFilter.get(3); //plista cu premiile
             Integer check = 0;
 
             for(String award : listAwards) {
@@ -120,15 +121,16 @@ public class Actors {
 
         String outString = "Query result: [";
         List<List<String>> listFilter = new ArrayList<>();
-        List<String> listWords = new ArrayList<>();
+        List<String> listWords = new ArrayList<>(); //lista ce contine cuvintele
         List<String> actorsList = new ArrayList<>();
 
         for(ActorInputData checkActor : actors) {
 
             listFilter = actions.getFilters();
-            listWords = listFilter.get(2);
+            listWords = listFilter.get(2); //cuvintele din filtru
             Integer check = 0;
 
+            //verific fiececare cuvant din filtru daca se se afal in descrierea actorului
             for(String word : listWords) {
                 if (!checkActor.getCareerDescription().contains(word)) {
                     check = 1;
@@ -140,6 +142,7 @@ public class Actors {
             }
 
         }
+        //sortez in functie de cum se cere
         if(sortType == "asc") {
             Collections.sort(actorsList);
         } else {

@@ -12,7 +12,7 @@ public final class MovieInputData extends ShowInput {
      * Duration in minutes of a season
      */
     private final int duration;
-    private ArrayList<Double> ratings = new ArrayList<Double>();
+    private ArrayList<Double> ratings = new ArrayList<Double>();  //retine ratingurile
 
 
     public ArrayList<Double> getRatings() {
@@ -23,6 +23,7 @@ public final class MovieInputData extends ShowInput {
         this.ratings = ratings;
     }
 
+    //metoda ce-mi returneaza media ratingurilor unui film
     public Double getMedRating() {
         if(ratings.size() == 0) {
             return  0.0;

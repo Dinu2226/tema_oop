@@ -14,7 +14,7 @@ public class Commands {
     private List<MovieInputData> movies;
     private List<SerialInputData> serials;
     private ActionInputData actions;
-    private Map<String, Integer> userHistory;
+    private Map<String, Integer> userHistory;  //pentru a retine filmul si de cate ori a fost vizionat
     private ArrayList<String>  favoriteMovies;
 
     public Commands(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
@@ -29,6 +29,8 @@ public class Commands {
 
         String outString = "";
         for(UserInputData user : users) {
+
+            // parcurg fiecare user si verific in istoric daca a fost vizionat filmul
             if(user.getUsername().equals(actions.getUsername())) {
                 userHistory = user.getHistory();
                 int verify = 0;
@@ -79,22 +81,24 @@ public class Commands {
         String outString = "";
         double raiting = actions.getGrade();
 
+
         UserInputData checkUser = users.get(0);
 
         for(UserInputData user : users){
             if(user.getUsername().equals(actions.getUsername())){
-                checkUser = user;
+                checkUser = user;   //userul pe care trebuie sa il verific
                 break;
             }
         }
 
         userHistory = checkUser.getHistory();
 
+        //caut filmul filmul in istoricul userului, pt a verifica daca ii putem da rating
         if(userHistory.containsKey(actions.getTitle())) {
             outString = "success -> " + actions.getTitle() + " was rated with " + raiting + " by " + actions.getUsername();
 
-            ArrayList<Double> newRatings;
-            ArrayList<Double> newSerialRatings;
+            ArrayList<Double> newRatings;  //ratingul pentru filme
+            ArrayList<Double> newSerialRatings;     //ratingul pentru seriale
 
 
             for(MovieInputData checkMovies : movies) {

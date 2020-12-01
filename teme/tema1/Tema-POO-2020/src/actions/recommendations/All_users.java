@@ -38,6 +38,7 @@ public class All_users {
             }
         }
 
+        // parcurgem filmul si daca nu se afla in istoric il returnam
         userHistory = checkUser.getHistory();
         for(MovieInputData movie: movies) {
             if(!userHistory.containsKey(movie.getTitle())) {
@@ -63,6 +64,7 @@ public class All_users {
 
         userHistory = checkUser.getHistory();
 
+        //parcurgem lista de filme si aflam filmul cu rating maxim, astfel, ne mai fiind nevoie sa folosim un map pe care sa il sortam ulterior
         for(MovieInputData checkMovie : movieList) {
             if(!userHistory.containsKey(checkMovie)){
                 if(checkMovie.getMedRating() > maxRating) {
@@ -72,6 +74,7 @@ public class All_users {
             }
         }
 
+        //verificam cazul in care maxRating, nu a fost modificat
         if(maxRating == 0.0) {
             for(MovieInputData checkMovie : movieList) {
                 if(!userHistory.containsKey(checkMovie)){

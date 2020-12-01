@@ -18,7 +18,7 @@ public final class SerialInputData extends ShowInput {
      * Season list
      */
     private final ArrayList<Season> seasons;
-    private ArrayList<Double> ratings = new ArrayList<Double>();
+    private ArrayList<Double> ratings = new ArrayList<Double>(); //retine ratingurile
 
 
     public ArrayList<Double> getSerialRatings() {
@@ -29,6 +29,7 @@ public final class SerialInputData extends ShowInput {
         this.ratings = ratings;
     }
 
+    //metoda ce-mi returneaza media ratingurilor
     public Double getMedSerialRating() {
         if(ratings.size() == 0) {
             return  0.0;

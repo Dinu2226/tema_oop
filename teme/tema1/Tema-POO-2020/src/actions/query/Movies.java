@@ -23,7 +23,7 @@ public class Movies {
 
     public String favorite(String sortType) {
 
-        Map<String, Integer> movieFreq = new TreeMap<>();
+        Map<String, Integer> movieFreq = new TreeMap<>(); //map pt frecventa
         ArrayList<String> favoriteMovies = new ArrayList<>();
         Integer currValue = 0;
         Map<String, Integer> sorted = new HashMap<>();
@@ -32,10 +32,12 @@ public class Movies {
         int year = 0;
         String genresList ;
 
+        //initializez aparitia fiecarui film cu 0
         for(MovieInputData movieCheck : movies) {
             movieFreq.put(movieCheck.getTitle(), 0);
         }
 
+        //retin numarul de aparitii in lista de favorite ale fiecarui user
         for(UserInputData checkUser : users) {
 
             favoriteMovies = checkUser.getFavoriteMovies();
@@ -48,6 +50,7 @@ public class Movies {
             }
         }
 
+        //sortez
         if(sortType == "desc") {
             movieFreq.entrySet()
                     .stream()
@@ -65,10 +68,10 @@ public class Movies {
         if(listFilter.get(0).get(0) == null) {
             year = -1;
         } else {
-            year = Integer.parseInt(listFilter.get(0).get(0));
+            year = Integer.parseInt(listFilter.get(0).get(0)); //anul transformat in int
         }
 
-        genresList = listFilter.get(1).get(0);
+        genresList = listFilter.get(1).get(0); //genul
 
         Integer N = actions.getNumber();
 
@@ -78,19 +81,18 @@ public class Movies {
             for(MovieInputData checkMovie : movies) {
                 Integer valid = 0;
                 if(checkMovie.getTitle().equals(movieName)){
+                    //validez atat anul cat si genul ca sa stiu daca se potriveste criteriului
                     if(checkMovie.getGenres().contains(genresList) && year == checkMovie.getYear()) {
                         valid = 1;
                     }
                 }
                 if(valid == 1) {
                     outString.add(movieName);
-//                    outString += movieName;
-//                    outString += ", ";
                     break;
                 }
 
             }
-
+            //cand terminam de adaugat cele N elemente, ne oprim
             if (N == 0) {
                 break;
             }
