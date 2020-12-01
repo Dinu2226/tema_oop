@@ -1,18 +1,20 @@
 package main;
 
+import actions.commands.Commands;
+import actions.recommendations.Recommendations;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
-import fileio.Input;
-import fileio.InputLoader;
-import fileio.Writer;
+import fileio.*;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -72,6 +74,49 @@ public final class Main {
 
         //TODO add here the entry point to your implementation
 
+        List<ActionInputData> actions = input.getCommands();
+        List<ActorInputData> actors = input.getActors();
+        List<MovieInputData> movies = input.getMovies();
+        List<SerialInputData> serials = input.getSerials();
+        List<UserInputData> users = input.getUsers();
+
+        for(ActionInputData action : actions) {
+            if(action.getActionType().equals("command")) {
+                Commands command = new Commands(users,movies,serials,action);
+                if(action.getType().equals("favorite")) {
+
+                    String message = command.favorite();
+                    JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
+                    arrayResult.add(outString);
+
+                } else if(action.getType().equals("view")) {
+
+                    String message = command.view();
+                    JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
+                    arrayResult.add(outString);
+
+                 } else if(action.getType().equals("rating")) {
+
+                    String message = command.rating();
+                    JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
+                    arrayResult.add(outString);
+
+                }
+            } else if(action.getActionType().equals("recommendation")) {
+
+                Recommendations recommendation = new Recommendations(users, movies, serials, action);
+
+                if(action.getType().equals("standard")) {
+                    String message = recommendation.standard();
+                    JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
+                    arrayResult.add(outString);
+                } else if(action.getType().equals("best_unseen")) {
+                    String message = recommendation.best_unseen(movies);
+                    JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
+                    arrayResult.add(outString);
+                }
+            }
+        }
         fileWriter.closeJSON(arrayResult);
     }
 }
