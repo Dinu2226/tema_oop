@@ -10,7 +10,7 @@ import main.Main;
 
 import java.util.*;
 
-public class Recommendations {
+public class all_users {
 
     private List<UserInputData> users;
     private List<MovieInputData> movies;
@@ -19,7 +19,7 @@ public class Recommendations {
     private Map<String, Integer> userHistory;
     private ArrayList<String> favoriteMovies;
 
-    public Recommendations (List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
+    public all_users(List<UserInputData> users, List<MovieInputData> movies, List<SerialInputData> serials, ActionInputData actions) {
         this.users = users;
         this.movies = movies;
         this. serials = serials;

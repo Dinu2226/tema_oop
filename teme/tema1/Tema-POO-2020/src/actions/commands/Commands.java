@@ -36,8 +36,6 @@ public class Commands {
                 if(userHistory.containsKey(actions.getTitle())) {
                     verify = 1;
                 }
-                System.out.println(verify);
-
                 if(verify == 0) {
                     outString = "error -> " + actions.getTitle() + " is not seen";
                     break;
@@ -97,12 +95,21 @@ public class Commands {
             outString = "success -> " + actions.getTitle() + " was rated with " + raiting + " by " + actions.getUsername();
 
             ArrayList<Double> newRatings;
+            ArrayList<Double> newSerialRatings;
+
 
             for(MovieInputData checkMovies : movies) {
                 if(actions.getTitle().equals(checkMovies)) {
                     newRatings = checkMovies.getRatings();
                     newRatings.add(actions.getGrade());
                     checkMovies.setRatings(newRatings);
+                }
+            }
+            for(SerialInputData checkSerial : serials) {
+                if(actions.getTitle().equals(checkSerial)) {
+                    newSerialRatings = checkSerial.getSerialRatings();
+                    newSerialRatings.add(actions.getGrade());
+                    checkSerial.setSerialRatings(newSerialRatings);
                 }
             }
 

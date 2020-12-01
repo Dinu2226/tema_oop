@@ -1,7 +1,9 @@
 package main;
 
 import actions.commands.Commands;
-import actions.recommendations.Recommendations;
+import actions.query.actors;
+import actions.recommendations.all_users;
+import actions.recommendations.premium;
 import checker.Checkstyle;
 import checker.Checker;
 import common.Constants;
@@ -102,9 +104,22 @@ public final class Main {
                     arrayResult.add(outString);
 
                 }
-            } else if(action.getActionType().equals("recommendation")) {
+            }else if(action.getActionType().equals("query")) {
 
-                Recommendations recommendation = new Recommendations(users, movies, serials, action);
+                actions.query.actors query = new actors(users, movies, serials, actors, action);
+
+                if (action.getObjectType().equals("actors")) {
+                    if(action.getCriteria().equals("average")) {
+                        String message = query.average();
+                        JSONObject outString = fileWriter.writeFile(action.getActionId(), "", message);
+                        arrayResult.add(outString);
+                    }
+                }
+
+            }else if(action.getActionType().equals("recommendation")) {
+
+                all_users recommendation = new all_users(users, movies, serials, action);
+                premium recommendationP = new premium(users, movies, serials, action);
 
                 if(action.getType().equals("standard")) {
                     String message = recommendation.standard();
@@ -114,8 +129,14 @@ public final class Main {
                     String message = recommendation.best_unseen(movies);
                     JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
                     arrayResult.add(outString);
+                } else if(action.getType().equals("favorite")) {
+                    String message = recommendationP.favorite();
+                    JSONObject outString = fileWriter.writeFile(action.getActionId(),"",message);
+                    arrayResult.add(outString);
                 }
+
             }
+
         }
         fileWriter.closeJSON(arrayResult);
     }

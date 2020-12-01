@@ -18,6 +18,28 @@ public final class SerialInputData extends ShowInput {
      * Season list
      */
     private final ArrayList<Season> seasons;
+    private ArrayList<Double> ratings = new ArrayList<Double>();
+
+
+    public ArrayList<Double> getSerialRatings() {
+        return ratings;
+    }
+
+    public void setSerialRatings(ArrayList<Double> ratings) {
+        this.ratings = ratings;
+    }
+
+    public Double getMedSerialRating() {
+        if(ratings.size() == 0) {
+            return  0.0;
+        }
+        Double rating = 0.0;
+        for(Double it : ratings) {
+            rating += it;
+        }
+
+        return rating / ratings.size();
+    }
 
     public SerialInputData(final String title, final ArrayList<String> cast,
                            final ArrayList<String> genres,
